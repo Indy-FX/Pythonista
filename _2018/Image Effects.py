@@ -16,7 +16,7 @@ def sketch(img):
 	
 def color_tiles(img):
 	size = img.size
-	small_img = img.resize((size[0]/2, size[1]/2), BILINEAR)
+	small_img = img.resize((int(size[0]/2), int(size[1]/2)), BILINEAR)
 	bw_img = small_img.convert('1', dither=False)
 	gray_img = bw_img.convert('L')
 	result = Image.new('RGB', size)
@@ -25,17 +25,17 @@ def color_tiles(img):
 	tile3 = ImageOps.colorize(gray_img, 'yellow', 'brown')
 	tile4 = ImageOps.colorize(gray_img, 'red', 'cyan')
 	result.paste(tile1, (0, 0))
-	result.paste(tile2, (size[0]/2, 0))
-	result.paste(tile3, (0, size[1]/2))
-	result.paste(tile4, (size[0]/2, size[1]/2))
+	result.paste(tile2, (int(size[0]/2), 0))
+	result.paste(tile3, (0, int(size[1]/2)))
+	result.paste(tile4, (int(size[0]/2), int(size[1]/2)))
 	return result
 
 def twisted(img, strength):
 	mesh = []
 	m = 16
 	w, h = img.size
-	for x in xrange(w / m):
-		for y in xrange(h / m):
+	for x in range(int(w / m)):
+		for y in range(int(h / m)):
 			target_rect = (x * m, y * m, x * m + m, y * m + m)
 			quad_points = ((x * m, y * m), (x * m, y * m + m),
 		                 (x * m + m, y * m + m), (x * m + m, y * m))
